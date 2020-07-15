@@ -1,0 +1,41 @@
+{
+    "location": {
+        "lat": "20.55",
+        "lng": "20.77"
+    },
+    "date": {
+        "startDate": "0",
+        "endDate": "0",
+        "startTime": "22:23",
+        "endTime": "12:12"
+    },
+    "name": "Trance Party",
+    "desc": "Woodstock festival",
+    "imgUrl": "",
+    "musicType": [
+        "Trance",
+        "Music"
+    ],
+    "eventType": [
+        "Karaoke",
+        "Rave"
+    ],
+    "createdAt": 1541652422,
+    "createdBy": {
+        "_id": "u101",
+        "fullName": "Orly Amdadi",
+        "imgUrl": "http://some-img"
+    },
+    "Participants": [
+        {
+            "_id": "u101",
+            "fullName": "Orly Amdadi",
+            "imgUrl": "http://some-img"
+        },
+        {
+            "_id": "u101",
+            "fullName": "Orly Amdadi",
+            "imgUrl": "http://some-img"
+        }
+    ]
+}
