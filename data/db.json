@@ -1,152 +1,61 @@
 {
-    "party": [
-        {
-            "_id": 1,
-            "name": "Pool Party!",
-            "desc": "Woodstock festival",
-            "imgUrl": "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/glow-disco-party-poster-template-2d310ac36d313dfc6fbc11b714f3859f_screen.jpg?ts=1561530801",
-            "fee": "FREE",
-            "likes": 3,
-            "startsAt": 1594918439879,
-            "durationHours": 12,
-            "createdAt": 1541652422,
-            "location": {
-                "name": "Baga, Club Havanna",
-                "lat": 20.55,
-                "lng": 20.77
-            },
-            "extraData": {
-                "musicTypes": [
-                    "Trance",
-                    "Music"
-                ],
-                "eventTypes": [
-                    "Karaoke",
-                    "Rave"
-                ],
-                "createdBy": {
-                    "_id": "u101",
-                    "fullName": "Orly Amdadi",
-                    "imgUrl": "http://some-img"
-                },
-                "members": [
-                    {
-                        "_id": "u101",
-                        "fullName": "Orly Amdadi",
-                        "imgUrl": "http://some-img"
-                    },
-                    {
-                        "_id": "u101",
-                        "fullName": "Orly Amdadi",
-                        "imgUrl": "http://some-img"
-                    }
-                ],
-                "reviews": []
-            }
+  "party": [
+    {
+      "_id": 1,
+      "name": "Pool Party!",
+      "desc": "Woodstock festival",
+      "imgUrl": "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/glow-disco-party-poster-template-2d310ac36d313dfc6fbc11b714f3859f_screen.jpg?ts=1561530801",
+      "fee": "0",
+      "likes": 3,
+      "startDate": "2020-07-17T22:00:00.000+03:00",
+      "endDate": "2020-07-18T14:00:00.000+03:00",
+      "durationHours": 12,
+      "createdAt": 1541652422,
+      "location": {
+        "name": "Baga, Club Havanna",
+        "lat": 20.55,
+        "lng": 20.77
+      },
+      "extraData": {
+        "musicTypes": [
+          "Trance",
+          "Music"
+        ],
+        "partyTypes": "Karaoke,Rave.Sing",
+        "createdBy": {
+          "_id": "u101",
+          "fullName": "Orly Amdadi",
+          "imgUrl": "http://some-img"
         },
-        {
-            "name": "Trance Party!",
-            "desc": "Woodstock festival",
-            "imgUrl": "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/glow-disco-party-poster-template-2d310ac36d313dfc6fbc11b714f3859f_screen.jpg?ts=1561530801",
-            "fee": "FREE",
-            "likes": 6,
-            "startsAt": 1594918439879,
-            "durationHours": 12,
-            "createdAt": 1541652422,
-            "location": {
-                "name": "Baga, Club Havanna",
-                "lat": 20.55,
-                "lng": 20.77
-            },
-            "extraData": {
-                "musicTypes": [
-                    "Trance",
-                    "Music"
-                ],
-                "eventTypes": [
-                    "Karaoke",
-                    "Rave"
-                ],
-                "createdBy": {
-                    "_id": "u101",
-                    "fullName": "Orly Amdadi",
-                    "imgUrl": "http://some-img"
-                },
-                "members": [
-                    {
-                        "_id": "u101",
-                        "fullName": "Orly Amdadi",
-                        "imgUrl": "http://some-img"
-                    },
-                    {
-                        "_id": "u101",
-                        "fullName": "Orly Amdadi",
-                        "imgUrl": "http://some-img"
-                    }
-                ],
-                "reviews": []
-            },
-            "_id": 2
-        },
-        {
-            "name": "Sex Party!",
-            "desc": "Woodstock festival",
-            "imgUrl": "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/glow-disco-party-poster-template-2d310ac36d313dfc6fbc11b714f3859f_screen.jpg?ts=1561530801",
-            "fee": "FREE",
-            "likes": 8,
-            "startsAt": 1594918439879,
-            "durationHours": 12,
-            "createdAt": 1541652422,
-            "location": {
-                "name": "Baga, Club Havanna",
-                "lat": 20.55,
-                "lng": 20.77
-            },
-            "extraData": {
-                "musicTypes": [
-                    "Trance",
-                    "Music"
-                ],
-                "eventTypes": [
-                    "Karaoke",
-                    "Rave",
-                    "House Party"
-                ],
-                "createdBy": {
-                    "_id": "u101",
-                    "fullName": "Orly Amdadi",
-                    "imgUrl": "http://some-img"
-                },
-                "members": [
-                    {
-                        "_id": "u101",
-                        "fullName": "Orly Amdadi",
-                        "imgUrl": "http://some-img"
-                    },
-                    {
-                        "_id": "u101",
-                        "fullName": "Orly Amdadi",
-                        "imgUrl": "http://some-img"
-                    }
-                ],
-                "reviews": []
-            },
-            "_id": 3
-        }
-    ],
-    "user": [
-        {
+        "members": [
+          {
             "_id": "u101",
             "fullName": "Orly Amdadi",
-            "userName": "user1",
-            "password": "1234",
-            "isAdmin": true,
-            "imgUrl": "https://www.kindpng.com/picc/m/24-248729_stockvader-predicted-adig-user-profile-image-png-transparent.png",
-            "location": {
-                "name": "Paris",
-                "lat": 30.55,
-                "lng": 33.77
-            }
-        }
-    ]
+            "imgUrl": "http://some-img"
+          },
+          {
+            "_id": "u101",
+            "fullName": "Orly Amdadi",
+            "imgUrl": "http://some-img"
+          }
+        ],
+        "reviews": []
+      }
+    }
+  ],
+  "user": [
+    {
+      "_id": "u101",
+      "fullName": "Orly Amdadi",
+      "userName": "user1",
+      "password": "1234",
+      "isAdmin": true,
+      "imgUrl": "https://www.kindpng.com/picc/m/24-248729_stockvader-predicted-adig-user-profile-image-png-transparent.png",
+      "location": {
+        "name": "Paris",
+        "lat": 30.55,
+        "lng": 33.77
+      }
+    }
+  ]
 }
