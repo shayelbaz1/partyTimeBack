@@ -3,7 +3,7 @@
     {
       "_id": 1,
       "name": "Pool Party!",
-      "desc": "The Best Festival Ever!",
+      "desc": "The festival was always a place of unrestrained joy. The costumes lit up the summer's day, a riot of colour to rival any gardener's paradise. Music filled the air, festive beats lifted the spirits and made the people want to move, jump and sing. It was a time to celebrate being alive, celebrate the wonders of creation and be one with the community. The air tasted so heavenly with the chefs alongside the parade, every delicious thing ready to be shared with friends.",
       "imgUrl": "http://res.cloudinary.com/partytime/image/upload/v1595073524/partyImgs/tbu3pwajhnhq3ycleknr.jpg",
       "fee": "0",
       "likes": 5,
@@ -21,7 +21,11 @@
           "Trance",
           "Music"
         ],
-        "partyTypes": "Karaoke,Rave.Sing",
+        "partyTypes": [
+          "Karaoke",
+          "Rave",
+          "Sing"
+        ],
         "createdBy": {
           "_id": "u101",
           "fullName": "Orly Amdadi",
