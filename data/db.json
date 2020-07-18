@@ -123,7 +123,11 @@
           "Karaoke",
           "Rave",
           "Sing",
-          "Workshop"
+          "Workshop",
+          "Open Mic",
+          "Live Concert",
+          "Late Night",
+          "Pool"
         ],
         "createdBy": {
           "_id": "u101",
