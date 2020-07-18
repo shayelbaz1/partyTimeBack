@@ -19,12 +19,14 @@
       "extraData": {
         "musicTypes": [
           "Trance",
-          "Music"
+          "Music",
+          "Techno"
         ],
         "partyTypes": [
           "Karaoke",
           "Rave",
-          "Sing"
+          "Sing",
+          "Workshop"
         ],
         "createdBy": {
           "_id": "u101",
