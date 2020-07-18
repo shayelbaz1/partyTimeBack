@@ -19,12 +19,16 @@
       "extraData": {
         "musicTypes": [
           "Trance",
-          "Music"
+          "Music",
+          "Techno",
+          "Funk",
+          "Metal"
         ],
         "partyTypes": [
           "Karaoke",
           "Rave",
-          "Sing"
+          "Sing",
+          "Workshop"
         ],
         "createdBy": {
           "_id": "u101",
@@ -62,8 +66,17 @@
         "lng": 32.77
       },
       "extraData": {
-        "musicTypes": "Trance, Hip Hop",
-        "partyTypes": "Beach",
+        "musicTypes": [
+          "Trance",
+          "Music",
+          "Techno"
+        ],
+        "partyTypes": [
+          "Karaoke",
+          "Rave",
+          "Sing",
+          "Workshop"
+        ],
         "createdBy": {
           "_id": "u101",
           "fullName": "Orly Amdadi",
@@ -101,8 +114,17 @@
         "lng": 33.77
       },
       "extraData": {
-        "musicTypes": "Trance, Hip Hop",
-        "partyTypes": "Beach",
+        "musicTypes": [
+          "Trance",
+          "Music",
+          "Techno"
+        ],
+        "partyTypes": [
+          "Karaoke",
+          "Rave",
+          "Sing",
+          "Workshop"
+        ],
         "createdBy": {
           "_id": "u101",
           "fullName": "Orly Amdadi",
@@ -126,8 +148,8 @@
     },
     {
       "name": "Beach party",
-      "desc": "The best party ever",
-      "imgUrl": "http://res.cloudinary.com/partytime/image/upload/v1594992303/partyImgs/camq0olmjppgiosmtoe3.jpg",
+      "desc": "The best party ever!\nYou will never forget this party!",
+      "imgUrl": "http://res.cloudinary.com/partytime/image/upload/v1595104849/partyImgs/wdasxavk205i55bqrgth.jpg",
       "fee": "0",
       "likes": 3,
       "startDate": "2020-07-17T16:30:00.000+03:00",
@@ -140,8 +162,17 @@
         "lng": 34.77
       },
       "extraData": {
-        "musicTypes": "Guitar",
-        "partyTypes": "Trance",
+        "musicTypes": [
+          "Trance",
+          "Music",
+          "Techno"
+        ],
+        "partyTypes": [
+          "Karaoke",
+          "Rave",
+          "Sing",
+          "Workshop"
+        ],
         "createdBy": {
           "_id": "u101",
           "fullName": "Orly Amdadi",
@@ -179,8 +210,17 @@
         "lng": 35.77
       },
       "extraData": {
-        "musicTypes": "All",
-        "partyTypes": "All",
+        "musicTypes": [
+          "Trance",
+          "Music",
+          "Techno"
+        ],
+        "partyTypes": [
+          "Karaoke",
+          "Rave",
+          "Sing",
+          "Workshop"
+        ],
         "createdBy": {
           "_id": "u101",
           "fullName": "Orly Amdadi",
