@@ -4,7 +4,7 @@
       "_id": 1,
       "name": "Pool Party!",
       "desc": "The Best Festival Ever!",
-      "imgUrl": "http://res.cloudinary.com/partytime/image/upload/v1594991728/partyImgs/cp2flb7jqk7d130gtvbk.jpg",
+      "imgUrl": "http://res.cloudinary.com/partytime/image/upload/v1595073524/partyImgs/tbu3pwajhnhq3ycleknr.jpg",
       "fee": "0",
       "likes": 5,
       "startDate": "2020-07-17T22:00:00.000+03:00",
@@ -13,8 +13,8 @@
       "createdAt": 1541652422,
       "location": {
         "name": "Baga, Club Havanna",
-        "lat": 20.55,
-        "lng": 20.77
+        "lat": 31.771959,
+        "lng": 35.217018
       },
       "extraData": {
         "musicTypes": [
