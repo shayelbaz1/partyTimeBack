@@ -201,6 +201,96 @@
         "reviews": []
       },
       "_id": 5
+    },
+    {
+      "name": "my king of party",
+      "desc": "thisa is part.......",
+      "imgUrl": "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/glow-disco-party-poster-template-2d310ac36d313dfc6fbc11b714f3859f_screen.jpg?ts=1561530801",
+      "fee": "110",
+      "likes": 0,
+      "startDate": "2020-07-24T23:45:00.000+03:00",
+      "endDate": "2020-07-18T23:45:00.000+03:00",
+      "durationHours": 0,
+      "createdAt": 0,
+      "location": {
+        "name": "tel aviv",
+        "lat": 32.0852999,
+        "lng": 34.78176759999999
+      },
+      "extraData": {
+        "musicTypes": [
+          "Hip Hop",
+          "Reggae"
+        ],
+        "partyTypes": [
+          "Jamming",
+          "Pool"
+        ],
+        "createdBy": {
+          "_id": "",
+          "fullName": "",
+          "imgUrl": ""
+        },
+        "members": [
+          {
+            "_id": "",
+            "fullName": "",
+            "imgUrl": ""
+          },
+          {
+            "_id": "",
+            "fullName": "",
+            "imgUrl": ""
+          }
+        ],
+        "reviews": []
+      },
+      "_id": 6
+    },
+    {
+      "name": "shais party at the beach",
+      "desc": "this is shais party at the beach",
+      "imgUrl": "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/glow-disco-party-poster-template-2d310ac36d313dfc6fbc11b714f3859f_screen.jpg?ts=1561530801",
+      "fee": "111",
+      "likes": 0,
+      "startDate": "2020-07-23T00:00:00.000+03:00",
+      "endDate": "2020-08-01T00:00:00.000+03:00",
+      "durationHours": 0,
+      "createdAt": 0,
+      "location": {
+        "name": "eilat israel",
+        "lat": 29.557669,
+        "lng": 34.951925
+      },
+      "extraData": {
+        "musicTypes": [
+          "R&B",
+          "World"
+        ],
+        "partyTypes": [
+          "House Party",
+          "Open Mic"
+        ],
+        "createdBy": {
+          "_id": "",
+          "fullName": "",
+          "imgUrl": ""
+        },
+        "members": [
+          {
+            "_id": "",
+            "fullName": "",
+            "imgUrl": ""
+          },
+          {
+            "_id": "",
+            "fullName": "",
+            "imgUrl": ""
+          }
+        ],
+        "reviews": []
+      },
+      "_id": 7
     }
   ],
   "user": [
