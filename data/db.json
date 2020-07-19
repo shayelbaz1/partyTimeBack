@@ -6,7 +6,7 @@
       "desc": "The festival was always a place of unrestrained joy. The costumes lit up the summer's day, a riot of colour to rival any gardener's paradise. Music filled the air, festive beats lifted the spirits and made the people want to move, jump and sing. It was a time to celebrate being alive, celebrate the wonders of creation and be one with the community. The air tasted so heavenly with the chefs alongside the parade, every delicious thing ready to be shared with friends.",
       "imgUrl": "http://res.cloudinary.com/partytime/image/upload/v1595073524/partyImgs/tbu3pwajhnhq3ycleknr.jpg",
       "fee": "0",
-      "likes": 8,
+      "likes": 10,
       "startDate": "2020-07-17T22:00:00.000+03:00",
       "endDate": "2020-07-18T14:00:00.000+03:00",
       "durationHours": 12,
@@ -55,7 +55,7 @@
       "desc": "The best party ever",
       "imgUrl": "http://res.cloudinary.com/partytime/image/upload/v1594991769/partyImgs/rjn0utqbcsipkk4dwvai.jpg",
       "fee": "0",
-      "likes": 4,
+      "likes": 7,
       "startDate": "2020-07-17T22:00:00.000+03:00",
       "endDate": "2020-07-18T14:00:00.000+03:00",
       "durationHours": 12,
@@ -243,13 +243,13 @@
       "_id": 5
     },
     {
-      "name": "my king of party",
-      "desc": "thisa is part.......",
+      "name": "party at azriely",
+      "desc": "a good party tonight",
       "imgUrl": "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/glow-disco-party-poster-template-2d310ac36d313dfc6fbc11b714f3859f_screen.jpg?ts=1561530801",
-      "fee": "110",
+      "fee": "222",
       "likes": 0,
-      "startDate": "2020-07-24T23:45:00.000+03:00",
-      "endDate": "2020-07-18T23:45:00.000+03:00",
+      "startDate": "2020-07-23T00:00:00.000+03:00",
+      "endDate": "2020-07-19T00:00:00.000+03:00",
       "durationHours": 0,
       "createdAt": 0,
       "location": {
@@ -259,12 +259,12 @@
       },
       "extraData": {
         "musicTypes": [
-          "Hip Hop",
-          "Reggae"
+          "Folk",
+          "Jazz"
         ],
         "partyTypes": [
-          "Jamming",
-          "Pool"
+          "Fetsival",
+          "Ecstatic Dance"
         ],
         "createdBy": {
           "_id": "",
@@ -288,13 +288,13 @@
       "_id": 6
     },
     {
-      "name": "shais party at the beach",
-      "desc": "this is shais party at the beach",
+      "name": "cacsdcdssd",
+      "desc": "cxcxczcxcx",
       "imgUrl": "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/glow-disco-party-poster-template-2d310ac36d313dfc6fbc11b714f3859f_screen.jpg?ts=1561530801",
       "fee": "111",
       "likes": 0,
-      "startDate": "2020-07-23T00:00:00.000+03:00",
-      "endDate": "2020-08-01T00:00:00.000+03:00",
+      "startDate": "2020-07-24T00:30:00.000+03:00",
+      "endDate": "2020-07-19T00:30:00.000+03:00",
       "durationHours": 0,
       "createdAt": 0,
       "location": {
@@ -304,12 +304,13 @@
       },
       "extraData": {
         "musicTypes": [
-          "R&B",
-          "World"
+          "Metal",
+          "Latin",
+          "Jazz"
         ],
         "partyTypes": [
-          "House Party",
-          "Open Mic"
+          "Beach Party",
+          "Ecstatic Dance"
         ],
         "createdBy": {
           "_id": "",
@@ -331,6 +332,51 @@
         "reviews": []
       },
       "_id": 7
+    },
+    {
+      "name": "shais party now bla",
+      "desc": "test ",
+      "imgUrl": "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/glow-disco-party-poster-template-2d310ac36d313dfc6fbc11b714f3859f_screen.jpg?ts=1561530801",
+      "fee": "111",
+      "likes": 0,
+      "startDate": "2020-07-16T00:45:00.000+03:00",
+      "endDate": "2020-08-01T00:45:00.000+03:00",
+      "durationHours": 0,
+      "createdAt": 0,
+      "location": {
+        "name": "Haifa israel",
+        "lat": 32.7940463,
+        "lng": 34.989571
+      },
+      "extraData": {
+        "musicTypes": [
+          "Drum & Electrtonic",
+          "Latin"
+        ],
+        "partyTypes": [
+          "Beach Party",
+          "Fetsival"
+        ],
+        "createdBy": {
+          "_id": "",
+          "fullName": "",
+          "imgUrl": ""
+        },
+        "members": [
+          {
+            "_id": "",
+            "fullName": "",
+            "imgUrl": ""
+          },
+          {
+            "_id": "",
+            "fullName": "",
+            "imgUrl": ""
+          }
+        ],
+        "reviews": []
+      },
+      "_id": 8
     }
   ],
   "user": [
