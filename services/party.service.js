@@ -1,5 +1,5 @@
 const fs = require('fs')
-const toys = require('../data/toy.json')
+const partys = require('../data/party.json')
 const _ = require("lodash");
 
 module.exports = {
@@ -10,52 +10,52 @@ module.exports = {
 }
 
 
-/* this function return all the requested toys
+/* this function return all the requested partys
 it gets a filter object by default txt is '' and minPrice is =
-first we ask for all the toys vendors that includes what in filterBy.txt
-then on those toys we ask for all the toys that the price is bigger then filterBy.minPrice*/
+first we ask for all the partys vendors that includes what in filterBy.txt
+then on those partys we ask for all the partys that the price is bigger then filterBy.minPrice*/
 // QUERY
 function query(filterBy = {txt: ''}) {
-    console.log('filterBy toy-service:', filterBy)
+    console.log('filterBy party-service:', filterBy)
     
-    toys.forEach((toy, idx) => {
-        toy.idx = idx;
-        toy.name = toy.name.toLowerCase();
+    partys.forEach((party, idx) => {
+        party.idx = idx;
+        party.name = party.name.toLowerCase();
     })
     // SEARCH
-    var filteredToys = toys.filter(toy => toy.name.includes(filterBy.txt))
+    var filteredPartys = partys.filter(party => party.name.includes(filterBy.txt))
     // filter type
-     filteredToys = filteredToys.filter(toy => toy.type.includes(filterBy.type_like))
+     filteredPartys = filteredPartys.filter(party => party.type.includes(filterBy.type_like))
     console.log('filterBy.inStock_like before:', filterBy.inStock_like)
     if (filterBy.inStock_like) {
         console.log('filterBy.inStock_like before:', filterBy.inStock_like)
         filterBy.inStock_like = JSON.parse(filterBy.inStock_like)
         console.log('filterBy.inStock_like after:', filterBy.inStock_like)
-        filteredToys = filteredToys.filter(toy => toy.inStock===filterBy.inStock_like)
+        filteredPartys = filteredPartys.filter(party => party.inStock===filterBy.inStock_like)
     }
     
     // ORDER-name
     if (filterBy._sort === 'name') {
         if (filterBy._order === "asc") {
-            filteredToys.sort(asc);
+            filteredPartys.sort(asc);
         } else if (filterBy._order === "desc") {
-            filteredToys.sort(desc);
+            filteredPartys.sort(desc);
         }
     }
     // ORDER-price
     else if (filterBy._sort === 'price') {
         if (filterBy._order === "asc") {
-            filteredToys.sort((a,b)=>a.price-b.price);
+            filteredPartys.sort((a,b)=>a.price-b.price);
         } else if (filterBy._order === "desc") {
-            filteredToys.sort((a,b)=>b.price-a.price);
+            filteredPartys.sort((a,b)=>b.price-a.price);
         }
     }
     // ORDER-id
     else if (filterBy._sort === '_id') {
         if (filterBy._order === "asc") {
-            filteredToys.sort((a,b)=>a._id-b._id);
+            filteredPartys.sort((a,b)=>a._id-b._id);
         } else if (filterBy._order === "desc") {
-            filteredToys.sort((a,b)=>b._id-a._id);
+            filteredPartys.sort((a,b)=>b._id-a._id);
         }
     }
 
@@ -66,9 +66,9 @@ function query(filterBy = {txt: ''}) {
     const startIdx = parseInt(filterBy.startIdx) || 0;
     const limit = parseInt(filterBy.limit)
     if (filterBy.limit)
-        filteredToys = filteredToys.slice((startIdx * limit), (startIdx * limit) + limit)
+        filteredPartys = filteredPartys.slice((startIdx * limit), (startIdx * limit) + limit)
 
-    return Promise.resolve(filteredToys);
+    return Promise.resolve(filteredPartys);
 }
 function asc(a, b) {
     if ( a.name < b.name ){
@@ -88,36 +88,36 @@ function desc(a, b) {
   }
 
 // REMOVE
-function remove(toyId) {
-    const idx = toys.findIndex(toy => toy._id === toyId)
-    if (idx >= 0) toys.splice(idx, 1)
-    _saveToysToFile()
+function remove(partyId) {
+    const idx = partys.findIndex(party => party._id === partyId)
+    if (idx >= 0) partys.splice(idx, 1)
+    _savePartysToFile()
     return Promise.resolve();
 }
 
 // GET BY ID
-function getById(toyId) {
-    const toy = toys.find(toy => toy._id === toyId)
-    return Promise.resolve(toy);
+function getById(partyId) {
+    const party = partys.find(party => party._id === partyId)
+    return Promise.resolve(party);
 }
 
 // SAVE
-function save(toy) {
-    if (toy._id) {
-        const idx = toys.findIndex(currToy => currToy._id === toy._id)
-        toys.splice(idx, 1, toy);
+function save(party) {
+    if (party._id) {
+        const idx = partys.findIndex(currParty => currParty._id === party._id)
+        partys.splice(idx, 1, party);
     } else {
-        toy._id = _makeId();
-        toys.unshift(toy);
+        party._id = _makeId();
+        partys.unshift(party);
     }
-    _saveToysToFile()
-    return Promise.resolve(toy)
+    _savePartysToFile()
+    return Promise.resolve(party)
 }
 
 
-// Save Toys to File
-function _saveToysToFile() {
-    fs.writeFileSync('data/toy.json', JSON.stringify(toys, null, 2));
+// Save Partys to File
+function _savePartysToFile() {
+    fs.writeFileSync('data/party.json', JSON.stringify(partys, null, 2));
 }
 
 // Make Id
