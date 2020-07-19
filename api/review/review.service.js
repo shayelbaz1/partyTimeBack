@@ -25,7 +25,7 @@ async function query(filterBy = {}) {
             {
                 $lookup:
                 {
-                    from: 'toy',
+                    from: 'party',
                     localField: 'aboutUserId',
                     foreignField: '_id',
                     as: 'aboutUser'
