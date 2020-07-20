@@ -11,17 +11,16 @@ module.exports = {
     add
 }
 
-async function query(filterBy = {sortBy:'fee'}) {
-    console.log(filterBy);
+async function query(filterBy) {
+    // console.log(filterBy);
     const sortBy = _buildSortBy(filterBy)
-    // const criteria = _buildCriteria(filterBy)
-    // console.log('sortBy', sortBy);
+    const criteria = _buildCriteria(filterBy)
+    console.log('criteria', criteria);
     // console.log('criteria', criteria);
     const collection = await dbService.getCollection('party')
     try {
-
-        const partys = await collection.find({ 'fee': { $lt: +filterBy.fee } }).sort(sortBy).toArray();
-        console.log(partys);
+        const partys = await collection.find(criteria).sort(sortBy).toArray();
+        //console.log(partys);
         // const partys = await collection.find().toArray();
 
         return partys
@@ -32,9 +31,10 @@ async function query(filterBy = {sortBy:'fee'}) {
 }
 
 function _buildCriteria(filterBy) {
+    // { qty: { $lt: 4 } } 
     const criteria = {};
     if (filterBy.fee) {
-        criteria.fee = { 'filterBy.fee': { $lt: +filterBy.fee } }
+        criteria.fee = { $lt: +filterBy.fee }
     }
     // if (filterBy.inStock_like) {
     //     criteria.inStock = JSON.parse(filterBy.inStock_like)//make the 'true' to true true
@@ -51,11 +51,11 @@ function _buildCriteria(filterBy) {
 }
 function _buildSortBy(filterBy) {
     const sortBy = {};
-    // if (filterBy._order&& filterBy._sort) {
-    //     filterBy._order = filterBy._order === 'asc' ? 1 : -1
-    //     sortBy[filterBy._sort] = filterBy._order
-    // }
-    sortBy[filterBy.sortBy] = -1
+    if (filterBy.sortBy) {
+        // filterBy._order = filterBy._order === 'asc' ? 1 : -1
+        // sortBy[filterBy._sort] = filterBy._order
+        sortBy[filterBy.sortBy] = -1
+    }
     return sortBy;
 }
 
