@@ -5,6 +5,12 @@ async function getParty(req, res) {
     const party = await partyService.getById(req.params.id)
     res.send(party)
 }
+
+async function getPartyLocations(req, res){
+    console.log('im here!!!');
+    const locations = await partyService.getPartyLocations()
+    res.send(locations)  
+}
   
 async function getPartys(req, res) {
     const partys = await partyService.query(req.query)
@@ -34,5 +40,6 @@ module.exports = {
     getPartys,
     deleteParty,
     updateParty,
-    addParty
+    addParty,
+    getPartyLocations
 }

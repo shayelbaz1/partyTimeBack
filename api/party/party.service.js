@@ -8,7 +8,8 @@ module.exports = {
     getById,
     remove,
     update,
-    add
+    add,
+    getPartyLocations
 }
 
 async function query(filterBy) {
@@ -16,7 +17,6 @@ async function query(filterBy) {
     const sortBy = _buildSortBy(filterBy)
     const criteria = _buildCriteria(filterBy)
     console.log('criteria', criteria);
-    // console.log('criteria', criteria);
     const collection = await dbService.getCollection('party')
     try {
         const partys = await collection.find(criteria).sort(sortBy).toArray();
@@ -31,22 +31,19 @@ async function query(filterBy) {
 }
 
 function _buildCriteria(filterBy) {
-    // { qty: { $lt: 4 } } 
     const criteria = {};
     if (filterBy.fee) {
         criteria.fee = { $lt: +filterBy.fee }
     }
-    // if (filterBy.inStock_like) {
-    //     criteria.inStock = JSON.parse(filterBy.inStock_like)//make the 'true' to true true
+    //TODO: FIX
+    // if (JSON.parse(filterBy.partyTypes).length > 0) {
+    //     console.log('in');
+    //     criteria["extraData.partyTypes"] = JSON.parse(filterBy.partyTypes)  
     // }
-    // if (filterBy.type_like) {
-    //     criteria.type = filterBy.type_like
-    // }
-    // if (filterBy.minBalance) {
-    //     criteria.balance = {$gte : +filterBy.minBalance}
-    //     // criteria.balance = {$lte : +filterBy.maxFee}
-    // }
-    
+
+    if (JSON.parse(filterBy.locations).length > 0) {
+        criteria["location.name"] = { $in: JSON.parse(filterBy.locations) } 
+    }   
     return criteria;
 }
 function _buildSortBy(filterBy) {
@@ -68,6 +65,20 @@ async function getById(partyId) {
         console.log(`ERROR: while finding party ${partyId}`)
         throw err;
     }
+}
+
+async function getPartyLocations(){
+    const collection = await dbService.getCollection('party')
+    try {
+        const partys = await collection.find().toArray()
+        let locations = partys.map((party) => party.location.name)
+        let newSet = new Set(locations)
+        let uniqueLocations = Array.from(newSet)
+        return uniqueLocations
+    } catch (err) {
+        console.log(`ERROR: while finding party ${partyId}`)
+        throw err;
+    }  
 }
 
 async function remove(partyId) {
