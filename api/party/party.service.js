@@ -11,15 +11,18 @@ module.exports = {
     add
 }
 
-async function query(filterBy = {}) {
-    // const sortBy = _buildSortBy(filterBy)
+async function query(filterBy = {sortBy:'fee'}) {
+    console.log(filterBy);
+    const sortBy = _buildSortBy(filterBy)
     // const criteria = _buildCriteria(filterBy)
-
+    // console.log('sortBy', sortBy);
+    // console.log('criteria', criteria);
     const collection = await dbService.getCollection('party')
     try {
 
-        // const partys = await collection.find(criteria).sort(sortBy).toArray();
-        const partys = await collection.find().toArray();
+        const partys = await collection.find({ 'fee': { $lt: +filterBy.fee } }).sort(sortBy).toArray();
+        console.log(partys);
+        // const partys = await collection.find().toArray();
 
         return partys
     } catch (err) {
@@ -30,30 +33,29 @@ async function query(filterBy = {}) {
 
 function _buildCriteria(filterBy) {
     const criteria = {};
-    if (filterBy.txt) {
-        // criteria.name = {$regex:`.*${filterBy.txt}.*\i`}
-        criteria.name = {$regex:new RegExp(filterBy.txt,'i')}
+    if (filterBy.fee) {
+        criteria.fee = { 'filterBy.fee': { $lt: +filterBy.fee } }
     }
-    if (filterBy.inStock_like) {
-        criteria.inStock = JSON.parse(filterBy.inStock_like)//make the 'true' to true true
-    }
-    if (filterBy.type_like) {
-        criteria.type = filterBy.type_like
-    }
-    if (filterBy.minBalance) {
-        criteria.balance = {$gte : +filterBy.minBalance}
-        // criteria.balance = {$lte : +filterBy.maxFee}
-    }
+    // if (filterBy.inStock_like) {
+    //     criteria.inStock = JSON.parse(filterBy.inStock_like)//make the 'true' to true true
+    // }
+    // if (filterBy.type_like) {
+    //     criteria.type = filterBy.type_like
+    // }
+    // if (filterBy.minBalance) {
+    //     criteria.balance = {$gte : +filterBy.minBalance}
+    //     // criteria.balance = {$lte : +filterBy.maxFee}
+    // }
     
     return criteria;
 }
 function _buildSortBy(filterBy) {
     const sortBy = {};
-    if (filterBy._order&& filterBy._sort) {
-        filterBy._order = filterBy._order === 'asc' ? 1 : -1
-        sortBy[filterBy._sort] = filterBy._order
-    }
-
+    // if (filterBy._order&& filterBy._sort) {
+    //     filterBy._order = filterBy._order === 'asc' ? 1 : -1
+    //     sortBy[filterBy._sort] = filterBy._order
+    // }
+    sortBy[filterBy.sortBy] = -1
     return sortBy;
 }
 
