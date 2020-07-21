@@ -14,9 +14,9 @@ async function login(req, res) {
 
 async function signup(req, res) {
     try {
-        const { email, password, username,isAdmin=false } = req.body
+        const { email, password, username, imgURL, isGoogle, isAdmin = false } = req.body
         logger.debug(email + ", " + username + ', ' + password + ',' + isAdmin)
-        const account = await authService.signup(email, password, username,isAdmin)
+        const account = await authService.signup(email, password, username, isGoogle, imgURL, isAdmin)
         logger.debug(`auth.route - new account created: ` + JSON.stringify(account))
         const user = await authService.login(email, password)
         req.session.user = user
@@ -27,7 +27,7 @@ async function signup(req, res) {
     }
 }
 
-async function logout(req, res){
+async function logout(req, res) {
     try {
         req.session.destroy()
         res.send({ message: 'logged out successfully' })

@@ -47,6 +47,6 @@ connectSockets(io)
 const logger = require('./services/logger.service')
 const port = process.env.PORT || 3000;
 http.listen(port, () => {
-    logger.info('Server is running on port: ' + 'http://localhost:'+port)
-    console.log('Server is running on port: ' + 'http://localhost:'+port)
+    logger.info('Server is running on port: ' + 'http://localhost:' + port)
+    console.log('Server is running on port: ' + 'http://localhost:' + port)
 });

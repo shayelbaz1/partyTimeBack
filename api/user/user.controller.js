@@ -3,10 +3,9 @@ const logger = require('../../services/logger.service')
 
 async function getUser(req, res) {
     const user = await userService.getById(req.params.id)
-    console.log('hihi',req);
     res.send(user)
 }
-  
+
 async function getUsers(req, res) {
     const users = await userService.query(req.query)
     logger.debug(users);

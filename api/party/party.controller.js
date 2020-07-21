@@ -7,7 +7,6 @@ async function getParty(req, res) {
 }
 
 async function getPartyLocations(req, res){
-    console.log('im here!!!');
     const locations = await partyService.getPartyLocations()
     res.send(locations)  
 }
