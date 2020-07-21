@@ -33,13 +33,13 @@ async function query(filterBy) {
 function _buildCriteria(filterBy) {
     const criteria = {};
     if (filterBy.fee) {
-        criteria.fee = { $lt: +filterBy.fee }
+        criteria.fee = { $lte: +filterBy.fee }
     }
     //TODO: FIX
-    // if (JSON.parse(filterBy.partyTypes).length > 0) {
-    //     console.log('in');
-    //     criteria["extraData.partyTypes"] = JSON.parse(filterBy.partyTypes)  
-    // }
+    if (JSON.parse(filterBy.partyTypes).length > 0) {
+        console.log('in');
+        criteria["extraData.partyTypes"] = { $all: JSON.parse(filterBy.partyTypes)  }
+    }
 
     if (JSON.parse(filterBy.locations).length > 0) {
         criteria["location.name"] = { $in: JSON.parse(filterBy.locations) } 
