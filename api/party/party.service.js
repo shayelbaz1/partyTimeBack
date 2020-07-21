@@ -51,7 +51,7 @@ function _buildSortBy(filterBy) {
     if (filterBy.sortBy) {
         // filterBy._order = filterBy._order === 'asc' ? 1 : -1
         // sortBy[filterBy._sort] = filterBy._order
-        sortBy[filterBy.sortBy] = -1
+        sortBy[filterBy.sortBy] = filterBy.sortBy === 'startDate' ? 1 : -1
     }
     return sortBy;
 }
