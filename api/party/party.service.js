@@ -33,13 +33,13 @@ async function query(filterBy) {
 function _buildCriteria(filterBy) {
     const criteria = {};
     if (filterBy.fee) {
-        criteria.fee = { $lt: +filterBy.fee }
+        criteria.fee = { $lte: +filterBy.fee }
     }
     //TODO: FIX
-    // if (JSON.parse(filterBy.partyTypes).length > 0) {
-    //     console.log('in');
-    //     criteria["extraData.partyTypes"] = JSON.parse(filterBy.partyTypes)  
-    // }
+    if (JSON.parse(filterBy.partyTypes).length > 0) {
+        console.log('in');
+        criteria["extraData.partyTypes"] = { $all: JSON.parse(filterBy.partyTypes)  }
+    }
 
     if (JSON.parse(filterBy.locations).length > 0) {
         criteria["location.name"] = { $in: JSON.parse(filterBy.locations) } 
@@ -51,7 +51,7 @@ function _buildSortBy(filterBy) {
     if (filterBy.sortBy) {
         // filterBy._order = filterBy._order === 'asc' ? 1 : -1
         // sortBy[filterBy._sort] = filterBy._order
-        sortBy[filterBy.sortBy] = -1
+        sortBy[filterBy.sortBy] = filterBy.sortBy === 'startDate' ? 1 : -1
     }
     return sortBy;
 }
