@@ -60,12 +60,13 @@ function _buildCriteria(filterBy) {
             $gte: today,
             $lt: tomorrow
         }
-    } else if(filterBy.startTime === 'Tommorow') {
-        criteria.startDate = {
-            $gte: tomorrow,
-            $lt: dayAfterTommarow
-        }
-    }
+    }    
+    // } else if(filterBy.startTime === 'Tommorow') {
+    //     criteria.startDate = {
+    //         $gte: tomorrow.toGMTString(),
+    //         $lt: dayAfterTommarow.toGMTString()
+    //     }
+    // }
   }
 
   return criteria
