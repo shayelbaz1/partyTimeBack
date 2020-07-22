@@ -14,7 +14,6 @@ async function getPartyLocations(req, res) {
 async function getPartys(req, res) {
     const partys = await partyService.query(req.query)
     logger.debug(partys);
-    console.log('test with aizen', req.session.user);
 
     res.send(partys)
 }

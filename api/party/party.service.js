@@ -21,6 +21,8 @@ async function query(filterBy) {
   try {
     console.log('criteria:', criteria)
     const partys = await collection.find(criteria).sort(sortBy).toArray()
+    // const partys = await collection.find().sort(sortBy).toArray()
+    console.log('partys from service:')
     partys.forEach(p => {console.log(p.name);});
     // const partys = await collection.find().toArray();
 
@@ -41,7 +43,6 @@ const now = Date.now(),
     nextWeek = new Date(today.valueOf() + (7 * oneDay))
 
 function _buildCriteria(filterBy) { 
-  console.log('filterBy:', filterBy)
   const criteria = {}
   if (filterBy.fee) {
     criteria.fee = { $lte: +filterBy.fee }
@@ -135,7 +136,6 @@ async function update(party) {
   const collection = await dbService.getCollection('party')
   party._id = ObjectId(party._id)
   party.startDate = new Date(party.startDate)
-  console.log('party.startDate:', party.startDate)
   party.endDate = new Date(party.endDate)
 
   try {
