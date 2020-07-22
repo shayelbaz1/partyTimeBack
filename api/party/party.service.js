@@ -4,7 +4,6 @@ const { forEach } = require('lodash')
 const ObjectId = require('mongodb').ObjectId
 // const {ISODate} = require('mongodb')
 
-
 module.exports = {
   query,
   getById,
@@ -15,13 +14,16 @@ module.exports = {
 }
 
 async function query(filterBy) {
+  console.log(filterBy)
   const sortBy = _buildSortBy(filterBy)
   const criteria = _buildCriteria(filterBy)
   const collection = await dbService.getCollection('party')
   try {
     console.log('criteria:', criteria)
     const partys = await collection.find(criteria).sort(sortBy).toArray()
-    partys.forEach(p => {console.log(p.name);});
+    partys.forEach((p) => {
+      console.log(p.name)
+    })
     // const partys = await collection.find().toArray();
 
     return partys
@@ -33,14 +35,14 @@ async function query(filterBy) {
 
 // Get current start of day and start of tomorrow
 const now = Date.now(),
-    oneDay = 1000 * 60 * 60 * 24,
-    currTime = new Date(),
-    today = new Date(now - (now % oneDay)),
-    tomorrow = new Date(today.valueOf() + oneDay),
-    dayAfterTommarow = new Date(today.valueOf() + (2 * oneDay)),
-    nextWeek = new Date(today.valueOf() + (7 * oneDay))
+  oneDay = 1000 * 60 * 60 * 24,
+  currTime = new Date(),
+  today = new Date(now - (now % oneDay)),
+  tomorrow = new Date(today.valueOf() + oneDay),
+  dayAfterTommarow = new Date(today.valueOf() + 2 * oneDay),
+  nextWeek = new Date(today.valueOf() + 7 * oneDay)
 
-function _buildCriteria(filterBy) { 
+function _buildCriteria(filterBy) {
   console.log('filterBy:', filterBy)
   const criteria = {}
   if (filterBy.fee) {
@@ -54,44 +56,45 @@ function _buildCriteria(filterBy) {
     criteria['location.name'] = { $in: JSON.parse(filterBy.locations) }
   }
 
-  if(filterBy.startTime){
-    if(filterBy.startTime === 'All'){
-        criteria.startDate = {
-            $gte: today 
+  if(filterBy.userLocation && filterBy.distance){
+    const userLocation = JSON.parse(filterBy.userLocation)
+    console.log(userLocation);
+    criteria.location = 
+        { $near :
+           {
+             $geometry: { type: "Point",  coordinates: [ userLocation.pos.lng, userLocation.pos.lng ] },
+             $minDistance: +filterBy.distance,
+            //  $maxDistance: 5000
+           }
         }
+  }
+
+  if (filterBy.startTime) {
+    if (filterBy.startTime === 'All') {
+      criteria.startDate = {
+        $gte: today,
       }
-    else if(filterBy.startTime === 'Today'){
-        criteria.startDate = {
-            $gte: today,
-            $lt: tomorrow 
-        }
-<<<<<<< HEAD
-    }    
-    // } else if(filterBy.startTime === 'Tommorow') {
-    //     criteria.startDate = {
-    //         $gte: tomorrow.toGMTString(),
-    //         $lt: dayAfterTommarow.toGMTString()
-    //     }
-    // }
-=======
-    } else if(filterBy.startTime === 'Tomorrow') {
-        criteria.startDate = {
-            $gte: tomorrow,
-            $lt: dayAfterTommarow
-        }
-    }else if(filterBy.startTime === 'Next 7 Days') {
-        criteria.startDate = {
-            $gte: today,
-            $lt: nextWeek
-        }
->>>>>>> 3f0577cc22c8c835067e055da2ca5b89bf7d74b6
+    } else if (filterBy.startTime === 'Today') {
+      criteria.startDate = {
+        $gte: today,
+        $lt: tomorrow,
+      }
+    } else if (filterBy.startTime === 'Tomorrow') {
+      criteria.startDate = {
+        $gte: tomorrow,
+        $lt: dayAfterTommarow,
+      }
+    } else if (filterBy.startTime === 'Next 7 Days') {
+      criteria.startDate = {
+        $gte: today,
+        $lt: nextWeek,
+      }
+    } else if (filterBy.startTime === 'Old Events') {
+      criteria.startDate = {
+        $lt: today,
+      }
+    }
   }
-    else if(filterBy.startTime === 'Old Events') {
-        criteria.startDate = {
-            $lt: today,
-        }
-  }
-}
 
   return criteria
 }
