@@ -6,6 +6,7 @@ const router = express.Router()
 
 router.get('/', getPartys)
 router.get('/locations', getPartyLocations)
+// router.put('/addPartysDistance', addPartysDistance)
 router.get('/:id', getParty)
 router.post('/', addParty)
 router.put('/:id', updateParty)

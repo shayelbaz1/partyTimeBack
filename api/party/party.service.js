@@ -1,8 +1,8 @@
 const dbService = require('../../services/db.service')
 const reviewService = require('../review/review.service')
+const { forEach } = require('lodash')
 const ObjectId = require('mongodb').ObjectId
 // const {ISODate} = require('mongodb')
-
 
 module.exports = {
   query,
@@ -14,14 +14,14 @@ module.exports = {
 }
 
 async function query(filterBy) {
-  // console.log(filterBy);
+  console.log('filterBy in backend:', filterBy)
   const sortBy = _buildSortBy(filterBy)
   const criteria = _buildCriteria(filterBy)
-  console.log('criteria', criteria)
   const collection = await dbService.getCollection('party')
   try {
+    console.log('criteria:', criteria)
     const partys = await collection.find(criteria).sort(sortBy).toArray()
-    //console.log(partys);
+    // const partys = await collection.find().sort(sortBy).toArray()
     // const partys = await collection.find().toArray();
 
     return partys
@@ -34,43 +34,70 @@ async function query(filterBy) {
 // Get current start of day and start of tomorrow
 const now = Date.now(),
     oneDay = 1000 * 60 * 60 * 24,
+    // currTime = new Date(),
     today = new Date(now - (now % oneDay)),
     tomorrow = new Date(today.valueOf() + oneDay),
-    dayAfterTommarow = new Date(today.valueOf() + (2 * oneDay))
+    dayAfterTommarow = new Date(today.valueOf() + (2 * oneDay)),
+    nextWeek = new Date(today.valueOf() + (7 * oneDay))
 
 function _buildCriteria(filterBy) { 
-  console.log(filterBy);   
   const criteria = {}
   if (filterBy.fee) {
     criteria.fee = { $lte: +filterBy.fee }
   }
+  // 
   if (JSON.parse(filterBy.partyTypes).length > 0) {
-    console.log('in')
-    criteria['extraData.partyTypes'] = { $all: JSON.parse(filterBy.partyTypes) }
+    criteria['extraData.partyTypes'] = { $in: JSON.parse(filterBy.partyTypes) }
   }
 
   if (JSON.parse(filterBy.locations).length > 0) {
     criteria['location.name'] = { $in: JSON.parse(filterBy.locations) }
   }
 
-  if(filterBy.startTime){
-    if(filterBy.startTime === 'Today'){
-        console.log('in');
-        criteria.startDate = {
-            $gte: today,
-            $lt: tomorrow
+  if(filterBy.userLocation && filterBy.distance){
+    const userLocation = JSON.parse(filterBy.userLocation)
+    console.log('userLocation:', userLocation)
+    criteria.location = 
+        { $near :
+           {
+              $geometry: { coordinates: [ userLocation.pos.lat, userLocation.pos.lng ] },
+              $maxDistance: +filterBy.distance*1000,
+            //  $maxDistance: 5000
+           }
         }
-    } else if(filterBy.startTime === 'Tommorow') {
-        criteria.startDate = {
-            $gte: tomorrow,
-            $lt: dayAfterTommarow
-        }
+  }
+
+  if (filterBy.startTime) {
+    if (filterBy.startTime === 'All') {
+      criteria.startDate = {
+        $gte: today,
+      }
+    } else if (filterBy.startTime === 'Today') {
+      criteria.startDate = {
+        $gte: today,
+        $lt: tomorrow,
+      }
+    } else if (filterBy.startTime === 'Tomorrow') {
+      criteria.startDate = {
+        $gte: tomorrow,
+        $lt: dayAfterTommarow,
+      }
+    } else if (filterBy.startTime === 'Next 7 Days') {
+      criteria.startDate = {
+        $gte: today,
+        $lt: nextWeek,
+      }
+    } else if (filterBy.startTime === 'Old Events') {
+      criteria.startDate = {
+        $lt: today,
+      }
     }
   }
 
   return criteria
 }
 
+// TODO marge with build critiria
 function _buildSortBy(filterBy) {
   const sortBy = {}
   if (filterBy.sortBy) {
@@ -119,6 +146,8 @@ async function remove(partyId) {
 async function update(party) {
   const collection = await dbService.getCollection('party')
   party._id = ObjectId(party._id)
+  party.startDate = new Date(party.startDate)
+  party.endDate = new Date(party.endDate)
 
   try {
     await collection.replaceOne({ _id: party._id }, { $set: party })

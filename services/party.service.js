@@ -16,7 +16,6 @@ first we ask for all the partys vendors that includes what in filterBy.txt
 then on those partys we ask for all the partys that the price is bigger then filterBy.minPrice*/
 // QUERY
 function query(filterBy = {txt: ''}) {
-    console.log('filterBy party-service:', filterBy)
     
     partys.forEach((party, idx) => {
         party.idx = idx;
@@ -26,11 +25,8 @@ function query(filterBy = {txt: ''}) {
     var filteredPartys = partys.filter(party => party.name.includes(filterBy.txt))
     // filter type
      filteredPartys = filteredPartys.filter(party => party.type.includes(filterBy.type_like))
-    console.log('filterBy.inStock_like before:', filterBy.inStock_like)
     if (filterBy.inStock_like) {
-        console.log('filterBy.inStock_like before:', filterBy.inStock_like)
         filterBy.inStock_like = JSON.parse(filterBy.inStock_like)
-        console.log('filterBy.inStock_like after:', filterBy.inStock_like)
         filteredPartys = filteredPartys.filter(party => party.inStock===filterBy.inStock_like)
     }
     
