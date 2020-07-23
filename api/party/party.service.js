@@ -14,7 +14,7 @@ module.exports = {
 }
 
 async function query(filterBy) {
-  console.log(filterBy)
+  console.log('filterBy in backend:', filterBy)
   const sortBy = _buildSortBy(filterBy)
   const criteria = _buildCriteria(filterBy)
   const collection = await dbService.getCollection('party')
@@ -34,7 +34,7 @@ async function query(filterBy) {
 // Get current start of day and start of tomorrow
 const now = Date.now(),
     oneDay = 1000 * 60 * 60 * 24,
-    currTime = new Date(),
+    // currTime = new Date(),
     today = new Date(now - (now % oneDay)),
     tomorrow = new Date(today.valueOf() + oneDay),
     dayAfterTommarow = new Date(today.valueOf() + (2 * oneDay)),
@@ -45,8 +45,9 @@ function _buildCriteria(filterBy) {
   if (filterBy.fee) {
     criteria.fee = { $lte: +filterBy.fee }
   }
+  // 
   if (JSON.parse(filterBy.partyTypes).length > 0) {
-    criteria['extraData.partyTypes'] = { $all: JSON.parse(filterBy.partyTypes) }
+    criteria['extraData.partyTypes'] = { $in: JSON.parse(filterBy.partyTypes) }
   }
 
   if (JSON.parse(filterBy.locations).length > 0) {
@@ -55,19 +56,13 @@ function _buildCriteria(filterBy) {
 
   if(filterBy.userLocation && filterBy.distance){
     const userLocation = JSON.parse(filterBy.userLocation)
-    // console.log(userLocation);
+    console.log('userLocation:', userLocation)
     criteria.location = 
         { $near :
            {
-             $geometry: {
-                type: "Point",
-                coordinates: [
-                   userLocation.pos.lng,
-                   userLocation.pos.lat
-                ] 
-             },
-             $minDistance: 0,
-             $maxDistance: +filterBy.distance * 1000
+              $geometry: { coordinates: [ userLocation.pos.lat, userLocation.pos.lng ] },
+              $maxDistance: +filterBy.distance*1000,
+            //  $maxDistance: 5000
            }
         }
   }
@@ -102,6 +97,7 @@ function _buildCriteria(filterBy) {
   return criteria
 }
 
+// TODO marge with build critiria
 function _buildSortBy(filterBy) {
   const sortBy = {}
   if (filterBy.sortBy) {
