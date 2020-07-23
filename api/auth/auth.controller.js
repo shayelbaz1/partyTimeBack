@@ -14,6 +14,8 @@ async function login(req, res) {
 
 async function signup(req, res) {
     try {
+        // HELLO AIZEN
+        console.log('auth controller:', req.body);
         const { email, password, username, imgURL, isGoogle, goingPartys, isAdmin = false } = req.body
         // logger.debug(email + ", " + username + ', ' + password + ',' + isAdmin)
         if (!isGoogle) {
