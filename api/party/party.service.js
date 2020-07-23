@@ -55,13 +55,19 @@ function _buildCriteria(filterBy) {
 
   if(filterBy.userLocation && filterBy.distance){
     const userLocation = JSON.parse(filterBy.userLocation)
-    console.log(userLocation);
+    // console.log(userLocation);
     criteria.location = 
         { $near :
            {
-             $geometry: { type: "Point",  coordinates: [ userLocation.pos.lng, userLocation.pos.lng ] },
-             $minDistance: +filterBy.distance,
-            //  $maxDistance: 5000
+             $geometry: {
+                type: "Point",
+                coordinates: [
+                   userLocation.pos.lng,
+                   userLocation.pos.lat
+                ] 
+             },
+             $minDistance: 0,
+             $maxDistance: +filterBy.distance * 1000
            }
         }
   }
