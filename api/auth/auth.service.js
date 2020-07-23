@@ -16,16 +16,17 @@ async function login(email, password) {
     return user;
 }
 
-async function signup(username, email, imgURL, isAdmin, isGoogle, password) {
+async function signup(username, email, imgURL, isAdmin, isGoogle, password, goingPartys) {
     // logger.debug(`auth.service - signup with email: ${email}, username: ${username}`)
+    console.log('creds in auth service:', username, email, imgURL, isAdmin, isGoogle, password, goingPartys);
     // console.log('creds in auth service:', username, email, imgURL, isAdmin, isGoogle, password);
     if (!isGoogle) {
         if (!email || !password || !username) return Promise.reject('email, username and password are required!')
         const hash = await bcrypt.hash(password, saltRounds)
-        return userService.add({ email, password: hash, username, imgURL, isAdmin })
+        return userService.add({ email, password: hash, username, imgURL, isAdmin, goingPartys })
 
     } else if (isGoogle) {
-        return userService.add({ email, username, imgURL, isAdmin })
+        return userService.add({ email, username, imgURL, isAdmin, goingPartys })
     }
 
 }
