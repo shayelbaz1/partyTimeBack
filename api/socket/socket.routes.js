@@ -24,7 +24,11 @@ function connectSockets(io) {
         });
         
         socket.on("party liked", ({currUser,currParty}) => {
-            io.emit('notify liked', currUser)
-          });
+            io.emit('notify liked', {currUser, currParty})
+        });
+
+        socket.on("party joined", ({currUser,currParty}) => {
+            io.emit('notify joined', {currUser, currParty})
+        });
     })
 }
