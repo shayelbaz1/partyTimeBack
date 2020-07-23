@@ -21,6 +21,10 @@ function connectSockets(io) {
 
         socket.on("typing user", ({userName, txt}) => {
             io.to(socket.myTopic).emit('show Typing', userName,txt)
+        });
+        
+        socket.on("party liked", ({currUser,currParty}) => {
+            io.emit('notify liked', currUser)
           });
     })
 }
