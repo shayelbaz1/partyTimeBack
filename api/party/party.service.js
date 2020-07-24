@@ -14,12 +14,10 @@ module.exports = {
 }
 
 async function query(filterBy) {
-  console.log('filterBy in backend:', filterBy)
   const sortBy = _buildSortBy(filterBy)
   const criteria = _buildCriteria(filterBy)
   const collection = await dbService.getCollection('party')
   try {
-    console.log('criteria:', criteria)
     const partys = await collection.find(criteria).sort(sortBy).toArray()
     // const partys = await collection.find().sort(sortBy).toArray()
     // const partys = await collection.find().toArray();
@@ -56,7 +54,6 @@ function _buildCriteria(filterBy) {
 
   if(filterBy.userLocation && filterBy.distance){
     const userLocation = JSON.parse(filterBy.userLocation)
-    console.log('userLocation:', userLocation)
     criteria.location = 
         { $near :
            {

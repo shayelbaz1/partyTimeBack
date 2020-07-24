@@ -8,7 +8,7 @@ router.get('/', getPartys)
 router.get('/locations', getPartyLocations)
 // router.put('/addPartysDistance', addPartysDistance)
 router.get('/:id', getParty)
-router.post('/', addParty)
+router.post('/',requireAuth, addParty)
 router.put('/:id',requireCreator, updateParty,)
 router.delete('/:id', deleteParty)
 
