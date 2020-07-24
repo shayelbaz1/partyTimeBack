@@ -11,6 +11,7 @@ module.exports = {
   update,
   add,
   getPartyLocations,
+  addPartyReview
 }
 
 async function query(filterBy) {
@@ -106,6 +107,25 @@ function _buildSortBy(filterBy) {
     sortBy[filterBy.sortBy] = filterBy.sortBy === 'startDate' ? 1 : -1
   }
   return sortBy
+}
+
+async function addPartyReview(review){
+  const collection = await dbService.getCollection('party')
+  try {
+    const party = await collection.findOne({ _id: ObjectId(review.currPartyId) })
+    const partyReviews = party.extraData.reviews
+    partyReviews.unshift(review)
+
+
+    collection.updateOne(
+      { _id: ObjectId(review.currPartyId)},
+      { $set: { "extraData.reviews": partyReviews }},
+    )
+    return party
+  } catch (err) {
+    console.log(`ERROR: while finding party ${review.currPartyId}`)
+    throw err
+  }
 }
 
 async function getById(partyId) {

@@ -11,6 +11,11 @@ async function getPartyLocations(req, res) {
     res.send(locations)
 }
 
+async function addPartyReview(req, res){
+    const party = await partyService.addPartyReview(req.body)
+    res.send(party)
+}
+
 async function getPartys(req, res) {
     const partys = await partyService.query(req.query)
     logger.debug(partys);
@@ -41,5 +46,6 @@ module.exports = {
     deleteParty,
     updateParty,
     addParty,
-    getPartyLocations
+    getPartyLocations,
+    addPartyReview
 }
