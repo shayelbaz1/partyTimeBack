@@ -16,14 +16,14 @@ async function signup(req, res) {
     try {
         // HELLO AIZEN
         console.log('auth controller:', req.body);
-        const { email, password, username, imgURL, isGoogle, goingPartys, isAdmin = false } = req.body
+        const { email, password, username, imgURL, isGoogle, goingPartys, createdPartys, isAdmin = false } = req.body
         // logger.debug(email + ", " + username + ', ' + password + ',' + isAdmin)
         if (!isGoogle) {
-            const account = await authService.signup(username, email, imgURL, isAdmin, isGoogle, password, goingPartys)
+            const account = await authService.signup(username, email, imgURL, isAdmin, isGoogle, password, goingPartys, createdPartys)
             
         }
         if (isGoogle) {
-            const account = await authService.signup(username, email, imgURL, isAdmin, isGoogle, password, goingPartys)
+            const account = await authService.signup(username, email, imgURL, isAdmin, isGoogle, password, goingPartys, createdPartys)
         }
         // logger.debug(`auth.route - new account created: ` + JSON.stringify(account))
         const user = await authService.login(email, password)
