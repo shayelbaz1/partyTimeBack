@@ -16,11 +16,19 @@ async function requireAdmin(req, res, next) {
   }
   next();
 }
-
-
+async function requireCreator(req, res, next) {
+  const user = req.session.user;
+  console.log('user in requireCreator', user);
+  if (!user.isAdmin) {
+    res.status(403).end('You are not admin, Only Admin can do this action');
+    return;
+  }
+  next();
+}
 // module.exports = requireAuth;
 
 module.exports = {
   requireAuth,
-  requireAdmin
+  requireAdmin,
+  requireCreator
 }
