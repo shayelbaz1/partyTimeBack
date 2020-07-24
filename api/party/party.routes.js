@@ -8,8 +8,8 @@ router.get('/', getPartys)
 router.get('/locations', getPartyLocations)
 router.put('/addReview', requireAuth, addPartyReview)
 router.get('/:id', getParty)
-router.post('/', addParty)
-router.put('/:id', requireCreator, updateParty,)
+router.post('/',requireAuth, addParty)
+router.put('/:id',requireCreator, updateParty,)
 router.delete('/:id', deleteParty)
 
 module.exports = router

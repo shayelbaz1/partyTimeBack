@@ -18,8 +18,6 @@ async function login(email, password) {
 
 async function signup(username, email, imgURL, isAdmin, isGoogle, password, goingPartys, createdPartys) {
     // logger.debug(`auth.service - signup with email: ${email}, username: ${username}`)
-    console.log('creds in auth service:', username, email, imgURL, isAdmin, isGoogle, password, goingPartys, createdPartys);
-    // console.log('creds in auth service:', username, email, imgURL, isAdmin, isGoogle, password);
     if (!isGoogle) {
         if (!email || !password || !username) return Promise.reject('email, username and password are required!')
         const hash = await bcrypt.hash(password, saltRounds)
