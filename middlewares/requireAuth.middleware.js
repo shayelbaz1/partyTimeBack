@@ -18,7 +18,9 @@ async function requireAdmin(req, res, next) {
 }
 async function requireCreator(req, res, next) {
   const user = req.session.user;
-  console.log('user in requireCreator', user);
+  console.log('req.body.name:', req.body.name)
+  console.log('req.body._id:', req.body._id)
+  console.log('user:', user.createdPartys)
   if (!user.isAdmin) {
     res.status(403).end('You are not admin, Only Admin can do this action');
     return;

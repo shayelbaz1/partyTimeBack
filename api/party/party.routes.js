@@ -9,7 +9,7 @@ router.get('/locations', getPartyLocations)
 // router.put('/addPartysDistance', addPartysDistance)
 router.get('/:id', getParty)
 router.post('/', addParty)
-router.put('/:id', requireCreator, updateParty,)
+router.put('/:id',requireCreator, updateParty,)
 router.delete('/:id', deleteParty)
 
 module.exports = router
