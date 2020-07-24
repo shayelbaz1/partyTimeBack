@@ -6,7 +6,7 @@
   "scripts": {
     "server:dev": "NODE_ENV=development nodemon app.js",
     "server:prod": "node app.js",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
