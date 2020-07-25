@@ -177,6 +177,8 @@ async function update(party) {
 
 async function add(party) {
   const collection = await dbService.getCollection('party')
+  party.startDate = new Date(party.startDate)
+  party.endDate = new Date(party.endDate)
   try {
     await collection.insertOne(party)
     return party
