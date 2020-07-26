@@ -1,5 +1,33 @@
 const authService = require('./auth.service')
 const logger = require('../../services/logger.service')
+const userService = require('../user/user.service')
+const { OAuth2Client } = require('google-auth-library');
+
+
+
+async function logingoogle(req, res) {
+    const { id_token } = req.body
+    async function verify() {
+        const CLIENT_ID = '533525570890-ik134ku5d86nd70i76dsjfcd7is3uag4.apps.googleusercontent.com'
+        const client = new OAuth2Client('533525570890-ik134ku5d86nd70i76dsjfcd7is3uag4.apps.googleusercontent.com');
+        const ticket = await client.verifyIdToken({idToken: id_token,audience: CLIENT_ID,});
+        const userInfo = ticket.getPayload();
+        const userid = userInfo['sub'];
+        const { sub, name,email,picture } = userInfo
+        // check if user email is in db
+        let user = await userService.getByEmail(email)
+        // if no user found by email so signup
+        if (!user) user = await authService.signup( name, email, picture)
+        // then sign in
+        try {
+            req.session.user = user;
+            res.json(user)
+        } catch (err) {
+            res.status(401).send({ error: err })
+        }
+    }
+    verify().catch(console.error);
+}
 
 async function login(req, res) {
     const { email, password } = req.body
@@ -45,5 +73,6 @@ async function logout(req, res) {
 module.exports = {
     login,
     signup,
-    logout
+    logout,
+    logingoogle
 }
