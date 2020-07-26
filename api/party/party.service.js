@@ -33,7 +33,6 @@ async function query(filterBy) {
 // Get current start of day and start of tomorrow
 const now = Date.now(),
     oneDay = 1000 * 60 * 60 * 24,
-    // currTime = new Date(),
     today = new Date(now - (now % oneDay)),
     tomorrow = new Date(today.valueOf() + oneDay),
     dayAfterTommarow = new Date(today.valueOf() + (2 * oneDay)),

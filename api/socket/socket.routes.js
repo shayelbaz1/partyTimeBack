@@ -27,6 +27,10 @@ function connectSockets(io) {
             io.emit('notify liked', {currUser, currParty})
         });
 
+        socket.on("review added", ({reviews}) => {
+            io.emit('notify reviewAdded', {reviews})
+        });
+
         socket.on("party joined", ({currUser,currParty}) => {
             io.emit('notify joined', {currUser, currParty})
         });
