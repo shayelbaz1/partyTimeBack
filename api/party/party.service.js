@@ -1,8 +1,5 @@
 const dbService = require('../../services/db.service')
-const reviewService = require('../review/review.service')
-const { forEach } = require('lodash')
 const ObjectId = require('mongodb').ObjectId
-// const {ISODate} = require('mongodb')
 
 module.exports = {
   query,
@@ -11,18 +8,16 @@ module.exports = {
   update,
   add,
   getPartyLocations,
-  addPartyReview
+  addPartyReview,
 }
 
 async function query(filterBy) {
   const sortBy = _buildSortBy(filterBy)
-  const criteria = _buildCriteria(filterBy)
+  const queriesObj = _buildQueriesObj(filterBy)
+  const criteria = _buildCriteria(filterBy, queriesObj)
   const collection = await dbService.getCollection('party')
   try {
     const partys = await collection.find(criteria).sort(sortBy).toArray()
-    // const partys = await collection.find().sort(sortBy).toArray()
-    // const partys = await collection.find().toArray();
-
     return partys
   } catch (err) {
     console.log('ERROR: cannot find partys')
@@ -35,65 +30,77 @@ const now = Date.now(),
   oneDay = 1000 * 60 * 60 * 24,
   today = new Date(now - (now % oneDay)),
   tomorrow = new Date(today.valueOf() + oneDay),
-  dayAfterTommarow = new Date(today.valueOf() + (2 * oneDay)),
-  nextWeek = new Date(today.valueOf() + (7 * oneDay))
+  dayAfterTommarow = new Date(today.valueOf() + 2 * oneDay),
+  nextWeek = new Date(today.valueOf() + 7 * oneDay)
 
-function _buildCriteria(filterBy) {
-  const criteria = {}
-  if (filterBy.fee) {
-    criteria.fee = { $lte: +filterBy.fee }
-  }
-  // TODO: good sentence
-  if (getParsedFilter(filterBy.partyTypes).length > 0) {
-    criteria['extraData.partyTypes'] = { $in: getParsedFilter(filterBy.partyTypes) }
-  }
-
-  if (getParsedFilter(filterBy.locations).length > 0) {
-    criteria['location.name'] = { $in: getParsedFilter(filterBy.locations) }
-  }
-
-  if (filterBy.userLocation && filterBy.distance) {
-    const userLocation = getParsedFilter(filterBy.userLocation)
-    criteria.location =
-    {
-      $near:
-      {
-        $geometry: { coordinates: [userLocation.pos.lat, userLocation.pos.lng] },
+function _buildQueriesObj(filterBy) {
+  const userLocation = getParsedFilter(filterBy.userLocation)
+  return (queriesObj = {
+    fee: { $lte: +filterBy.fee },
+    partyTypes: { $in: getParsedFilter(filterBy.partyTypes) },
+    locality: { $in: getParsedFilter(filterBy.locations) },
+    location: {
+      $near: {
+        $geometry: {
+          coordinates: [userLocation.pos.lat, userLocation.pos.lng],
+        },
         $maxDistance: +filterBy.distance * 1000,
-        //  $maxDistance: 5000
-      }
-    }
-  }
+      },
+    },
+    all: {
+      $gte: today,
+    },
+    today: {
+      $gte: today,
+      $lt: tomorrow,
+    },
+    tomorrow: {
+      $gte: tomorrow,
+      $lt: dayAfterTommarow,
+    },
+    nextSevenDays: {
+      $gte: today,
+      $lt: nextWeek,
+    },
+    oldEvents: {
+      $lt: today,
+    },
+  })
+}
+
+function _buildCriteria(filterBy, queriesObj) {
+  const criteria = {}
+  if (filterBy.fee) criteria.fee = queriesObj.fee
+
+  if (getParsedFilter(filterBy.partyTypes).length > 0)
+    criteria['extraData.partyTypes'] = queriesObj.partyTypes
+  if (getParsedFilter(filterBy.locations).length > 0)
+    criteria['location.name'] = queriesObj.locality
+  if (filterBy.userLocation && filterBy.distance)
+    criteria.location = queriesObj.location
 
   if (filterBy.startTime) {
-    if (filterBy.startTime === 'All') {
-      criteria.startDate = {
-        $gte: today,
-      }
-    } else if (filterBy.startTime === 'Today') {
-      criteria.startDate = {
-        $gte: today,
-        $lt: tomorrow,
-      }
-    } else if (filterBy.startTime === 'Tomorrow') {
-      criteria.startDate = {
-        $gte: tomorrow,
-        $lt: dayAfterTommarow,
-      }
-    } else if (filterBy.startTime === 'Next 7 Days') {
-      criteria.startDate = {
-        $gte: today,
-        $lt: nextWeek,
-      }
-    } else if (filterBy.startTime === 'Old Events') {
-      criteria.startDate = {
-        $lt: today,
-      }
-    }
+    const queryKey = _getStartTimeKey(filterBy.startTime)
+    criteria.startDate = queriesObj[queryKey]
   }
-
   return criteria
 }
+
+function _getStartTimeKey(startTime) {
+  switch (startTime) {
+    case 'All':
+      return 'all'
+    case 'Today':
+      return 'today'
+    case 'Tomorrow':
+      return 'tomorrow'
+    case 'Next 7 Days':
+      return 'nextSevenDays'
+    case 'Old Events':
+      return 'oldEvents'
+  }
+}
+
 function getParsedFilter(filterString) {
   return JSON.parse(filterString)
 }
@@ -101,8 +108,6 @@ function getParsedFilter(filterString) {
 function _buildSortBy(filterBy) {
   const sortBy = {}
   if (filterBy.sortBy) {
-    // filterBy._order = filterBy._order === 'asc' ? 1 : -1
-    // sortBy[filterBy._sort] = filterBy._order
     sortBy[filterBy.sortBy] = filterBy.sortBy === 'startDate' ? 1 : -1
   }
   return sortBy
@@ -111,14 +116,15 @@ function _buildSortBy(filterBy) {
 async function addPartyReview(review) {
   const collection = await dbService.getCollection('party')
   try {
-    const party = await collection.findOne({ _id: ObjectId(review.currPartyId) })
+    const party = await collection.findOne({
+      _id: ObjectId(review.currPartyId),
+    })
     const partyReviews = party.extraData.reviews
     partyReviews.unshift(review)
 
-
     collection.updateOne(
       { _id: ObjectId(review.currPartyId) },
-      { $set: { "extraData.reviews": partyReviews } },
+      { $set: { 'extraData.reviews': partyReviews } },
     )
     return party
   } catch (err) {
