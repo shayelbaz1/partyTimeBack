@@ -14,7 +14,7 @@ async function logingoogle(req, res) {
         const userInfo = ticket.getPayload();
         const userid = userInfo['sub'];
         const { sub, name,email,picture } = userInfo
-        // check if user email is in db
+        // check if user is in db
         let user = await userService.getByEmail(email)
         // if no user found by email so signup
         if (!user) user = await authService.signup( name, email, picture)
