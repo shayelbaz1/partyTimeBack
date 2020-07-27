@@ -7,14 +7,16 @@ const { OAuth2Client } = require('google-auth-library');
 
 async function logingoogle(req, res) {
     const { id_token } = req.body
+    console.log('id_token:', id_token)
     async function verify() {
-        const CLIENT_ID = '533525570890-ik134ku5d86nd70i76dsjfcd7is3uag4.apps.googleusercontent.com'
-        const client = new OAuth2Client('533525570890-ik134ku5d86nd70i76dsjfcd7is3uag4.apps.googleusercontent.com');
+        const CLIENT_ID = '533525570890-vp3jb7kpae7rd3pjk943bhstsbp3gtgi.apps.googleusercontent.com'
+        const client = new OAuth2Client('533525570890-vp3jb7kpae7rd3pjk943bhstsbp3gtgi.apps.googleusercontent.com');
         const ticket = await client.verifyIdToken({ idToken: id_token, audience: CLIENT_ID, });
         const userInfo = ticket.getPayload();
+        console.log('userInfo:', userInfo)
         const userid = userInfo['sub'];
-        const { sub, name, email, picture } = userInfo
-        // check if user email is in db
+        const { sub, name,email,picture } = userInfo
+        // check if user is in db
         let user = await userService.getByEmail(email)
         // if no user found by email so signup
         if (!user) user = await authService.signup(name, email, picture)
