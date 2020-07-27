@@ -43,17 +43,17 @@ function _buildCriteria(filterBy) {
   if (filterBy.fee) {
     criteria.fee = { $lte: +filterBy.fee }
   }
-  // 
-  if (JSON.parse(filterBy.partyTypes).length > 0) {
-    criteria['extraData.partyTypes'] = { $in: JSON.parse(filterBy.partyTypes) }
+  // TODO: good sentence
+  if (getParsedFilter(filterBy.partyTypes).length > 0) {
+    criteria['extraData.partyTypes'] = { $in: getParsedFilter(filterBy.partyTypes) }
   }
 
-  if (JSON.parse(filterBy.locations).length > 0) {
-    criteria['location.name'] = { $in: JSON.parse(filterBy.locations) }
+  if (getParsedFilter(filterBy.locations).length > 0) {
+    criteria['location.name'] = { $in: getParsedFilter(filterBy.locations) }
   }
 
   if (filterBy.userLocation && filterBy.distance) {
-    const userLocation = JSON.parse(filterBy.userLocation)
+    const userLocation = getParsedFilter(filterBy.userLocation)
     criteria.location =
     {
       $near:
@@ -94,8 +94,10 @@ function _buildCriteria(filterBy) {
 
   return criteria
 }
+function getParsedFilter(filterString) {
+  return JSON.parse(filterString)
+}
 
-// TODO marge with build critiria
 function _buildSortBy(filterBy) {
   const sortBy = {}
   if (filterBy.sortBy) {
