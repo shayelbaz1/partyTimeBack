@@ -19,20 +19,20 @@ function connectSockets(io) {
             socket.myTopic = topic;
         })
 
-        socket.on("typing user", ({userName, txt}) => {
-            io.to(socket.myTopic).emit('show Typing', userName,txt)
-        });
-        
-        socket.on("party liked", ({currUser,currParty}) => {
-            io.emit('notify liked', {currUser, currParty})
+        socket.on("typing user", ({ userName, txt }) => {
+            io.to(socket.myTopic).emit('show Typing', userName, txt)
         });
 
-        socket.on("review added", ({reviews}) => {
-            io.emit('notify reviewAdded', {reviews})
+        socket.on("party liked", ({ currUser, currParty }) => {
+            io.emit('notify liked', { currUser, currParty })
         });
 
-        socket.on("party joined", ({currUser,currParty}) => {
-            io.emit('notify joined', {currUser, currParty})
+        socket.on("review added", ({ reviews }) => {
+            io.emit('notify reviewAdded', { reviews })
+        });
+
+        socket.on("party joined", ({ currUser, currParty }) => {
+            io.emit('notify joined', { currUser, currParty })
         });
     })
 }

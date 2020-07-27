@@ -16,7 +16,7 @@ async function login(email, password) {
     return user;
 }
 
-async function signup(username, email, imgURL, isAdmin =false, isGoogle=false, password='1234', goingPartys=[], createdPartys=[]) {
+async function signup(username, email, imgURL, isAdmin = false, isGoogle = false, password = '1234', goingPartys = [], createdPartys = []) {
     // logger.debug(`auth.service - signup with email: ${email}, username: ${username}`)
     if (!isGoogle) {
         if (!email || !password || !username) return Promise.reject('email, username and password are required!')

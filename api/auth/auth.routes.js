@@ -1,6 +1,6 @@
 const express = require('express')
 const { requireAuth } = require('../../middlewares/requireAuth.middleware')
-const { login, signup, logout,logingoogle } = require('./auth.controller')
+const { login, signup, logout, logingoogle } = require('./auth.controller')
 
 const router = express.Router()
 
