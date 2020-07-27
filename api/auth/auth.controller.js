@@ -10,14 +10,14 @@ async function logingoogle(req, res) {
     async function verify() {
         const CLIENT_ID = '533525570890-ik134ku5d86nd70i76dsjfcd7is3uag4.apps.googleusercontent.com'
         const client = new OAuth2Client('533525570890-ik134ku5d86nd70i76dsjfcd7is3uag4.apps.googleusercontent.com');
-        const ticket = await client.verifyIdToken({idToken: id_token,audience: CLIENT_ID,});
+        const ticket = await client.verifyIdToken({ idToken: id_token, audience: CLIENT_ID, });
         const userInfo = ticket.getPayload();
         const userid = userInfo['sub'];
-        const { sub, name,email,picture } = userInfo
+        const { sub, name, email, picture } = userInfo
         // check if user email is in db
         let user = await userService.getByEmail(email)
         // if no user found by email so signup
-        if (!user) user = await authService.signup( name, email, picture)
+        if (!user) user = await authService.signup(name, email, picture)
         // then sign in
         try {
             req.session.user = user;
@@ -46,7 +46,7 @@ async function signup(req, res) {
         // logger.debug(email + ", " + username + ', ' + password + ',' + isAdmin)
         if (!isGoogle) {
             const account = await authService.signup(username, email, imgURL, isAdmin, isGoogle, password, goingPartys, createdPartys)
-            
+
         }
         if (isGoogle) {
             const account = await authService.signup(username, email, imgURL, isAdmin, isGoogle, password, goingPartys, createdPartys)

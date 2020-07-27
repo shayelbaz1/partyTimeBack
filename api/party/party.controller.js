@@ -11,7 +11,7 @@ async function getPartyLocations(req, res) {
     res.send(locations)
 }
 
-async function addPartyReview(req, res){
+async function addPartyReview(req, res) {
     const party = await partyService.addPartyReview(req.body)
     res.send(party)
 }

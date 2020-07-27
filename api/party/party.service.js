@@ -32,13 +32,13 @@ async function query(filterBy) {
 
 // Get current start of day and start of tomorrow
 const now = Date.now(),
-    oneDay = 1000 * 60 * 60 * 24,
-    today = new Date(now - (now % oneDay)),
-    tomorrow = new Date(today.valueOf() + oneDay),
-    dayAfterTommarow = new Date(today.valueOf() + (2 * oneDay)),
-    nextWeek = new Date(today.valueOf() + (7 * oneDay))
+  oneDay = 1000 * 60 * 60 * 24,
+  today = new Date(now - (now % oneDay)),
+  tomorrow = new Date(today.valueOf() + oneDay),
+  dayAfterTommarow = new Date(today.valueOf() + (2 * oneDay)),
+  nextWeek = new Date(today.valueOf() + (7 * oneDay))
 
-function _buildCriteria(filterBy) { 
+function _buildCriteria(filterBy) {
   const criteria = {}
   if (filterBy.fee) {
     criteria.fee = { $lte: +filterBy.fee }
@@ -52,16 +52,17 @@ function _buildCriteria(filterBy) {
     criteria['location.name'] = { $in: JSON.parse(filterBy.locations) }
   }
 
-  if(filterBy.userLocation && filterBy.distance){
+  if (filterBy.userLocation && filterBy.distance) {
     const userLocation = JSON.parse(filterBy.userLocation)
-    criteria.location = 
-        { $near :
-           {
-              $geometry: { coordinates: [ userLocation.pos.lat, userLocation.pos.lng ] },
-              $maxDistance: +filterBy.distance*1000,
-            //  $maxDistance: 5000
-           }
-        }
+    criteria.location =
+    {
+      $near:
+      {
+        $geometry: { coordinates: [userLocation.pos.lat, userLocation.pos.lng] },
+        $maxDistance: +filterBy.distance * 1000,
+        //  $maxDistance: 5000
+      }
+    }
   }
 
   if (filterBy.startTime) {
@@ -105,7 +106,7 @@ function _buildSortBy(filterBy) {
   return sortBy
 }
 
-async function addPartyReview(review){
+async function addPartyReview(review) {
   const collection = await dbService.getCollection('party')
   try {
     const party = await collection.findOne({ _id: ObjectId(review.currPartyId) })
@@ -114,8 +115,8 @@ async function addPartyReview(review){
 
 
     collection.updateOne(
-      { _id: ObjectId(review.currPartyId)},
-      { $set: { "extraData.reviews": partyReviews }},
+      { _id: ObjectId(review.currPartyId) },
+      { $set: { "extraData.reviews": partyReviews } },
     )
     return party
   } catch (err) {

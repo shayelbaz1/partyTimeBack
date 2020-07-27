@@ -18,7 +18,7 @@ async function query(filterBy = {}) {
                     foreignField: '_id',
                     as: 'byUser'
                 }
-            }, 
+            },
             {
                 $unwind: '$byUser'
             },
@@ -30,15 +30,15 @@ async function query(filterBy = {}) {
                     foreignField: '_id',
                     as: 'aboutUser'
                 }
-            }, 
+            },
             {
                 $unwind: '$aboutUser'
             }
         ]).toArray()
 
         reviewA = reviewA.map(review => {
-            review.byUser = {_id: review.byUser._id, username: review.byUser.username}
-            review.aboutUser = {_id: review.aboutUser._id, name: review.aboutUser.name}
+            review.byUser = { _id: review.byUser._id, username: review.byUser.username }
+            review.aboutUser = { _id: review.aboutUser._id, name: review.aboutUser.name }
             delete review.byUserId;
             delete review.aboutUserId;
             return review;
@@ -61,7 +61,7 @@ function _buildCriteria(filterBy) {
 async function remove(reviewId) {
     const collection = await dbService.getCollection('review')
     try {
-        await collection.deleteOne({"_id":ObjectId(reviewId)})
+        await collection.deleteOne({ "_id": ObjectId(reviewId) })
     } catch (err) {
         console.log(`ERROR: cannot remove review ${reviewId}`)
         throw err;
