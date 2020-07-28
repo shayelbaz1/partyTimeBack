@@ -8,8 +8,8 @@ const { OAuth2Client } = require('google-auth-library');
 async function logingoogle(req, res) {
     const { id_token } = req.body
     async function verify() {
-        const CLIENT_ID = '533525570890-ik134ku5d86nd70i76dsjfcd7is3uag4.apps.googleusercontent.com'
-        const client = new OAuth2Client('533525570890-ik134ku5d86nd70i76dsjfcd7is3uag4.apps.googleusercontent.com');
+        const CLIENT_ID = '533525570890-vp3jb7kpae7rd3pjk943bhstsbp3gtgi.apps.googleusercontent.com'
+        const client = new OAuth2Client('533525570890-vp3jb7kpae7rd3pjk943bhstsbp3gtgi.apps.googleusercontent.com');
         const ticket = await client.verifyIdToken({ idToken: id_token, audience: CLIENT_ID, });
         const userInfo = ticket.getPayload();
         const userid = userInfo['sub'];
@@ -26,7 +26,7 @@ async function logingoogle(req, res) {
             res.status(401).send({ error: err })
         }
     }
-    verify().catch(console.error);
+    verify().catch('Error in varify',console.error);
 }
 
 async function login(req, res) {
