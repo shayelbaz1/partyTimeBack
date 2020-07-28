@@ -20,7 +20,7 @@ async function signup(username, email, imgURL, isAdmin = false, isGoogle = false
     // logger.debug(`auth.service - signup with email: ${email}, username: ${username}`)
     if (!isGoogle) {
         if (!email || !password || !username) return Promise.reject('email, username and password are required!')
-        const hash = await bcrypt(password, saltRounds)
+        const hash = await bcrypt.hash(password, saltRounds)
         return userService.add({ email, password: hash, username, imgURL, isAdmin, goingPartys, createdPartys })
 
     } else if (isGoogle) {
