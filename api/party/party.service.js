@@ -72,12 +72,9 @@ function _buildCriteria(filterBy, queriesObj) {
   const criteria = {}
   if (filterBy.fee) criteria.fee = queriesObj.fee
 
-  if (getParsedFilter(filterBy.partyTypes).length > 0)
-    criteria['extraData.partyTypes'] = queriesObj.partyTypes
-  if (getParsedFilter(filterBy.locations).length > 0)
-    criteria['location.name'] = queriesObj.locality
-  if (filterBy.userLocation && filterBy.distance)
-    criteria.location = queriesObj.location
+  if (getParsedFilter(filterBy.partyTypes).length > 0) criteria['extraData.partyTypes'] = queriesObj.partyTypes
+  if (getParsedFilter(filterBy.locations).length > 0) criteria['location.name'] = queriesObj.locality
+  if (filterBy.userLocation && filterBy.distance) criteria.location = queriesObj.location
 
   if (filterBy.startTime) {
     const queryKey = _getStartTimeKey(filterBy.startTime)
